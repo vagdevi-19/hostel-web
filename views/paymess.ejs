@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="theme-color" content="#3e454c">
-        <title>All complaints</title>
+        <title>Payment</title>
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
@@ -43,7 +43,7 @@
                 <li class="ts-account">
                     <a href="#"><img src="img/ts-avatar.jpg" class="ts-avatar hidden-side" alt=""> Account <i class="fa fa-angle-down hidden-side"></i></a>
                     <ul>
-                        <li><a href="/admin">Logout</a></li>
+                        <li><a href="/login">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -54,50 +54,49 @@
                 <ul class="ts-sidebar-menu">
                 
                     <li class="ts-label">Main</li>
-                    <li><a href="/adminprofile"><i class="fa fa-user"></i> My Profile</a></li>
-                    <li><a href="/uploadmess"><i class="fa fa-file-o"></i>Upload monthly mess bills</a></li>
-                    <li><a href="/admintransactions"><i class="fa fa-file-o"></i>mess bill transcations</a></li>
-                    <li><a href="/allcomplaints"><i class="fa fa-file-o"></i>complaints and repairs</a></li>
-                    <li><a href="/adminfeedbacks"><i class="fa fa-file-o"></i>All Feedbacks</a></li>
-                    <li><a href="/adminnotifications"><i class="fa fa-files-o"></i>Post Notifications</a></li>
-                    <li><a href="/changepassword"><i class="fa fa-files-o"></i>Change Password</a></li>
-                    
+    <li><a href="/myprofile"><i class="fa fa-user"></i> My Profile</a></li>
+    <li><a href="/paymess"><i class="fa fa-file-o"></i>Pay Mess bill</a></li>
+    <li><a href="/messtransactions"><i class="fa fa-file-o"></i>My mess bill transcations</a></li>
+    <li><a href="/allmonthsbills"><i class="fa fa-file-o"></i>All Months Mess bills</a></li>
+    <li><a href="/complaint"><i class="fa fa-file-o"></i>Any complaint</a></li>
+    <li><a href="/mealfeedback"><i class="fa fa-file-o"></i>Meal Feedback</a></li>
+    <li><a href="/notifications"><i class="fa fa-file-o"></i>Notifications</a></li>
+    <li><a href="/studentpassword"><i class="fa fa-files-o"></i>Change Password</a></li>
+    
                 </ul>
-            </nav>		<div class="content-wrapper">
+            </nav>		
+            <div class="content-wrapper">
                 <div class="container-fluid">
-            
+    
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="page-title">All complaints </h2>
+                        
+                            <h2 class="page-title">Mess bill payment</h2>
     
                             <div class="row">
-                                <div class="col-md-12">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="well row pt-2x pb-3x bk-light">
+                                <div class="col-md-8 col-md-offset-2">
+                                
+                                    <form action="/paymess" class="mt" method="post">
+                                        <label for="" class="text-uppercase text-sm">Account no.:</label>
+                                        <input type="text" placeholder="Email" name="accno" class="form-control mb">
+                                        <label for="" class="text-uppercase text-sm">Amount</label>
+                                        <input type="text"  placeholder="Amount" name="amount" class="form-control mb">
+                                        <label for="" class="text-uppercase text-sm">Account Password:</label>
+                                        <input type="password" placeholder="Password" name="password" class="form-control mb">
                                         
     
-    <div class="panel panel-primary">
-        <div class="panel-heading"> All complains</div>
-        <div class="panel-body">
-            <form class="form-horizontal" action="/updatecomplaints" method="post">
-                <% for(var i=0;i<result.length;i++){ %>
-            <div class="form-group">
-                <% if(result[i].solved=="Not Solved"){%>
-                    <label class="col-sm-1 control-label">
-                        <input class="col-sm-1 control-label"  type="checkbox" style="height:20px;width:20px" name=<%=result[i].id %>>
-                         Done</label>
-                <% } %>
-                <label class="col-sm-2 control-label"> <%=result[i].solved%></label>
-                <div class="col-sm-6">
-                <input readonly type="textarea" value="<%=result[i].com%>" id="fname" class="form-control"  required="required">
-                </div>
-                <label class="col-sm-1 control-label"><%=result[i].rollno%></label>
-            </div>
-            <% } %>
-            <input type="submit"  value="Update Profile" style="background-color:green" class=" btn btn-primary">
-            </form>
-        </div>
-    </div>
-                                    </div>
+                                        <input type="submit" class="btn btn-primary btn-block" style="font-size:50" value="Proceed to pay">
+                                    </form>
                                 </div>
+                            </div>
+                            <div class="text-center text-light" >
+                                <lable style="color:red"><%=locals.error %></lable>
+                                <lable style="color:green"><%=locals.mes %> <%= locals.tid%></lable>
+                            </div>
+                        </div>
+                    </div>
                             </div>
                                 </div>
                             </div>

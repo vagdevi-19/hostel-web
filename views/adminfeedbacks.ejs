@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="theme-color" content="#3e454c">
-        <title>All complaints</title>
+        <title>Meal Fedback</title>
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
@@ -43,7 +43,7 @@
                 <li class="ts-account">
                     <a href="#"><img src="img/ts-avatar.jpg" class="ts-avatar hidden-side" alt=""> Account <i class="fa fa-angle-down hidden-side"></i></a>
                     <ul>
-                        <li><a href="/admin">Logout</a></li>
+                        <li><a href="/login">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -68,34 +68,45 @@
             
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="page-title">All complaints </h2>
+                            <h2 class="page-title">Give your Feedback</h2>
     
                             <div class="row">
                                 <div class="col-md-12">
-                                        
+    <br>
+
     
     <div class="panel panel-primary">
-        <div class="panel-heading"> All complains</div>
-        <div class="panel-body">
-            <form class="form-horizontal" action="/updatecomplaints" method="post">
-                <% for(var i=0;i<result.length;i++){ %>
-            <div class="form-group">
-                <% if(result[i].solved=="Not Solved"){%>
-                    <label class="col-sm-1 control-label">
-                        <input class="col-sm-1 control-label"  type="checkbox" style="height:20px;width:20px" name=<%=result[i].id %>>
-                         Done</label>
-                <% } %>
-                <label class="col-sm-2 control-label"> <%=result[i].solved%></label>
-                <div class="col-sm-6">
-                <input readonly type="textarea" value="<%=result[i].com%>" id="fname" class="form-control"  required="required">
-                </div>
-                <label class="col-sm-1 control-label"><%=result[i].rollno%></label>
-            </div>
-            <% } %>
-            <input type="submit"  value="Update Profile" style="background-color:green" class=" btn btn-primary">
-            </form>
+    <div class="panel-heading"> All Feedbacks</div>
+    <div class="panel-body">
+        <form class="form-horizontal">
+        <% for(var i=0;i<locals.result.length;i++){ %>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Breakfast Feedback</label>
+            <div class="col-sm-9">
+            <input readonly type="textarea" name="bf" value="<%=result[i].mf%>" id="fname" class="form-control"  required="required">
+            </div><hr>
+            
+            <label class="col-sm-2 control-label">Lunch Feedback</label>
+            <div class="col-sm-9">
+            <input readonly type="textarea" name="lf" value="<%=result[i].af%>" id="fname" class="form-control"  required="required">
+            </div><hr>
+
+            <label class="col-sm-2 control-label">Dinner Feedback</label>
+            <div class="col-sm-9">
+            <input readonly type="textarea" name="df" value="<%=result[i].nf%>" id="fname" class="form-control"  required="required">
+            </div><hr>
+
+            <label class="col-sm-2 control-label">Other Feedback</label>
+            <div class="col-sm-9">
+            <input readonly type="textarea" name="of" value="<%=result[i].of%>" id="fname" class="form-control"  required="required">
+            </div><hr>
         </div>
+        <% } %>
+        </form>
     </div>
+</div>
+    
+                                        </div>
                                     </div>
                                 </div>
                             </div>
