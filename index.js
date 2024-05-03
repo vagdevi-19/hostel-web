@@ -127,9 +127,9 @@ app.post("/registration",async(req,res)=>{
     const v=req.body.veg;
     const a=req.body.address;
     const p=req.body.password;
-    await db.query("insert into student values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",[r,f,l,g,c,e,b,v,a,p]);
+    await db.query("insert into student values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,now())",[r,f,l,g,c,e,b,v,a,p]);
 
-    res.redirect("/login.ejs");
+    res.redirect("/login");
 });
 app.get("/complaint",async (req,res)=>{
     console.log("Entered complaint of ",rollno);
@@ -214,7 +214,7 @@ app.get("/messtransactions",async (req,res)=>{
     try{
         const result=await db.query("select * from transaction where rollno=$1",[rollno]);
         console.log(result.rows);
-        res.render("messtransactions.ejs",{rollno:rollno,result:result.rows});
+        res.render("messtransactions.ejs",{rollno:rollno, result:result.rows});
     }catch(error){
         console.log(error);
     }
@@ -239,6 +239,16 @@ app.get("/allmonthsbills",async (req,res)=>{
         console.log(error);
     }
 });
+app.get("/adminallmonthmess",async (req,res)=>{
+    console.log("all month bills");
+    try{
+        const result=await db.query("select * from monthlymess");
+        console.log(result.rows);
+        res.render("adminallmonthmess.ejs",{result:result.rows});
+    }catch(error){
+        console.log(error);
+    }
+});
 app.get("/uploadmess",async(req,res)=>{
     res.render("uploadmess.ejs");
 });
@@ -250,7 +260,10 @@ app.post("/uploadmess",async(req,res)=>{
         const m=req.body.mon;
         const v=req.body.veg;
         const n=req.body.nonveg;
-        const result=await(db.query("insert into monthlymess values($1,$2,$3,$4)",[y,m,v,n]));
+        const result=await(db.query("insert into monthlymess values($1,$2,$3,$4) returning *",[y,m,v,n]));
+        console.log(result.rows);
+        await db.query("update student set due=due+$1 where veg='Veg'",[result.rows[0].veg]);
+        await db.query("update student set due=due+$1 where veg='Non Veg'",[result.rows[0].nonveg]);
         res.redirect("/uploadmess");
     }catch(error){
         console.log(error);
@@ -331,14 +344,17 @@ app.get("/bank",async(req,res)=>{
     res.json(response.data);
 });
 app.get("/paymess",async(req,res)=>{
-    res.render("paymess.ejs");
+    const result=await db.query("select due from student where rollno=$1",[rollno]);
+    res.render("paymess.ejs",{bill:result.rows[0].due});
 });
 app.post("/paymess",async(req,res)=>{
     console.log("In paymess page",req.body);
     const response=await axios.post(`${apiurl}/payment`,req.body);
     console.log(response.data,rollno);
     try{
-        await db.query("insert into transaction(tid,rollno,accountno,tdate,amount) values ($1,$2,$3,$4,$5)",[response.data.tid,rollno,req.body.accno,response.data.tdate,req.body.amount]);
+        const result=await db.query("insert into transaction(tid,rollno,accountno,tdate,amount) values ($1,$2,$3,$4,$5) returning *",[response.data.tid,rollno,req.body.accno,response.data.tdate,req.body.amount]);
+        console.log(result.rows[0]);
+        await db.query("update student set due=due-$1 where rollno=$2",[result.rows[0].amount,rollno]);
     }
     catch(error){
         console.log(error);

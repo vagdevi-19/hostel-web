@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="theme-color" content="#3e454c">
-        <title>Mess bill Trasactions</title>
+        <title>Monthly mess bills</title>
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
@@ -69,7 +69,7 @@
             
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="page-title">Transaction History</h2>
+                            <h2 class="page-title">All Months bills</h2>
     
                             <div class="row">
                                 <div class="col-md-12">
@@ -78,20 +78,20 @@
 
     
     <div class="panel panel-primary">
-    <div class="panel-heading">Mess bill transactions of all students</div>
+    <div class="panel-heading">ALl transactions</div>
     <div class="panel-body">
         <form class="form-horizontal">
-            <label class="col-sm-3 ">Date</label>
-            <label class="col-sm-3 ">Tansaction id</label>
-            <label class="col-sm-3 ">Account no.</label>
-            <label class="col-sm-2 ">Amount</label><br>
+            <label class="col-sm-3 ">Month</label>
+            <label class="col-sm-3 ">Year</label>
+            <label class="col-sm-3 ">Veg</label>
+            <label class="col-sm-2 ">Non Veg Amount</label><br>
             <hr style="border: none; border-bottom: 1px solid black;">
             <% for(var i=0;i<result.length;i++){ %>
         <div class="form-group">
-            <label class="col-sm-3 "><%=(locals.result[i].tdate).toString().slice(0,15)  %></label>
-            <label class="col-sm-3 "><%=locals.result[i].tid  %></label>
-            <label class="col-sm-3 "><%=locals.result[i].accountno  %></label>
-            <label class="col-sm-2 "><%=locals.result[i].amount  %></label>
+            <label class="col-sm-3 "><%=locals.result[i].month%></label>
+            <label class="col-sm-3 "><%=locals.result[i].year%></label>
+            <label class="col-sm-3 "><%=locals.result[i].veg%></label>
+            <label class="col-sm-2 "><%=locals.result[i].nonveg%></label>
         </div><hr>
         <% } %>
         </form>
